@@ -1,0 +1,5 @@
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[servers]
+apache ansible_host=192.168.33.20
+react ansible_host=192.168.33.21

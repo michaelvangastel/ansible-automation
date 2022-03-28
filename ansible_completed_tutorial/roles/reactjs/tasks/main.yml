@@ -1,0 +1,26 @@
+---
+- name: ensure react application is copied to the react VM
+  copy:
+    src: "apps/react_application/"
+    dest: "/apps/react_application"
+- name: ensure the service is copied
+  copy:
+    src: "etc/systemd/system/"
+    dest: "/etc/systemd/system"
+- name: ensure systemctl daemon is reloaded
+  systemd:
+    daemon_reload: yes
+- name: ensure react application is started
+  systemd: 
+    name: react_application
+    state: started
+    enabled: yes
+- name: ensure port 5000 is permanently opened to tcp traffic
+  firewalld:
+    port: "5000/tcp"
+    permanent: true
+    state: enabled
+- name: restart firewalld
+  service:
+    name: firewalld
+    state: restarted

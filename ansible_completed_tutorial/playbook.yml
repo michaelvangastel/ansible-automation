@@ -1,0 +1,23 @@
+---
+- hosts: apache
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Run Apache role
+      include_role:
+        name: apache
+
+- hosts: react
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Run NodeJS role
+      include_role:
+        name: geerlingguy.nodejs
+      vars:
+        nodejs_npm_global_packages: ['npx','yarn']
+    - name: Run ReactJS role
+      include_role:
+        name: reactjs
